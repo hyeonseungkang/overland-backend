@@ -1,0 +1,22 @@
+name: Copilot Automated Code Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  copilot-review:
+    name: Copilot Code Review
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Run Copilot Review
+        uses: github/copilot-action@v1 # 또는 사용하려는 official/custom review action
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
